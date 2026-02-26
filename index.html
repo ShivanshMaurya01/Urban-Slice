@@ -4,179 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UrbanSlice Premium</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
-body{background:#0f0f0f;color:#fff;overflow-x:hidden}
+body{background:#0e0e0e;color:#fff;overflow-x:hidden}
 
 /* SPLASH */
 #splash{
-position:fixed;
-top:0;left:0;
-width:100%;height:100vh;
-background:#000;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-animation:fadeOut 1s ease forwards;
+position:fixed;top:0;left:0;width:100%;height:100vh;
+background:#000;display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+z-index:5000;animation:fadeOut 1s ease forwards;
 animation-delay:3s;
 }
-#splash h1{
-font-size:52px;
-letter-spacing:4px;
-color:orange;
-animation:glow 1.5s infinite alternate;
-}
-#splash p{margin-top:15px;color:#ccc;font-size:18px}
-@keyframes glow{from{text-shadow:0 0 10px orange}to{text-shadow:0 0 30px red}}
+#splash h1{font-size:50px;color:orange;letter-spacing:4px}
+#splash p{margin-top:15px;color:#ccc}
 @keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
 /* HEADER */
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:rgba(0,0,0,0.85);
-backdrop-filter:blur(8px);
-position:fixed;
-width:100%;
-z-index:1000;
+display:flex;justify-content:space-between;
+align-items:center;padding:20px 40px;
+background:#111;position:sticky;top:0;z-index:1000
 }
-#logo{font-size:24px;font-weight:bold;color:orange;cursor:pointer}
-.icons span{margin-left:20px;font-size:20px;cursor:pointer;position:relative}
-.badge{
-position:absolute;
-top:-8px;right:-10px;
-background:red;
-border-radius:50%;
-padding:2px 6px;
-font-size:12px;
-}
+#logo{font-size:26px;color:orange;font-weight:bold;cursor:pointer}
+.icons span{margin-left:20px;cursor:pointer;font-size:20px}
 
 /* HERO */
 .hero{
-height:80vh;
-background:url('https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-display:flex;
-justify-content:center;
-align-items:center;
-position:relative;
+height:70vh;
+background:url('https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d?auto=format&fit=crop&w=1600&q=80') center/cover;
+display:flex;justify-content:center;align-items:center;
+position:relative;text-align:center
 }
 .hero::after{
-content:'';
-position:absolute;
-width:100%;height:100%;
-background:linear-gradient(to bottom,rgba(0,0,0,0.6),rgba(0,0,0,0.85));
+content:'';position:absolute;width:100%;height:100%;
+background:rgba(0,0,0,0.6)
 }
-.hero-content{
-position:relative;
-text-align:center;
-z-index:2;
-}
-.hero-content h1{
-font-size:60px;
-letter-spacing:5px;
-}
+.hero-content{position:relative;z-index:2}
+.hero-content h1{font-size:60px;letter-spacing:5px}
 .hero-content p{margin:15px 0;font-size:20px;color:#ddd}
 .hero-content button{
-padding:12px 28px;
-background:orange;
-border:none;
-border-radius:30px;
-cursor:pointer;
-font-size:16px;
-transition:0.3s;
+padding:12px 30px;border:none;border-radius:30px;
+background:orange;color:#fff;cursor:pointer;
+font-size:16px
 }
-.hero-content button:hover{background:#ff7a00;transform:scale(1.05)}
 
-/* PRODUCTS */
-.section{padding:120px 50px 60px}
+/* GRID */
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:25px;padding:50px
 }
 .card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(8px);
-border-radius:15px;
-overflow:hidden;
-transition:0.4s;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
+background:#1a1a1a;border-radius:15px;
+overflow:hidden;transition:0.3s;
+box-shadow:0 10px 25px rgba(0,0,0,0.5)
 }
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 15px 35px rgba(0,0,0,0.8);
-}
-.card img{width:100%;height:180px;object-fit:cover}
+.card:hover{transform:translateY(-8px)}
+.card img{width:100%;height:170px;object-fit:cover}
 .card-body{padding:15px}
-.card-body h3{margin-bottom:5px}
-.price{margin:8px 0;font-weight:bold}
-button{padding:6px 12px;border:none;border-radius:6px;cursor:pointer}
+button{
+padding:6px 10px;border:none;border-radius:6px;
+cursor:pointer;margin-top:6px
+}
 .add{background:orange;color:#fff}
 .wish{background:#333;color:#fff;margin-left:5px}
-.add:hover{background:#ff7a00}
-.wish:hover{background:#555}
 
-/* CART PANEL */
+/* SIDEBAR */
 .panel{
-position:fixed;
-right:0;top:0;
-width:320px;height:100vh;
-background:#111;
-padding:20px;
-overflow:auto;
+position:fixed;right:0;top:0;width:320px;height:100vh;
+background:#111;padding:20px;overflow:auto;
 transform:translateX(100%);
-transition:0.4s;
-z-index:3000;
-box-shadow:-5px 0 25px rgba(0,0,0,0.6);
+transition:0.4s;z-index:3000
 }
 .panel.active{transform:translateX(0)}
 .overlay{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.6);
-display:none;
-z-index:2000;
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.6);display:none;z-index:2000
 }
 .overlay.active{display:block}
 
 /* ADMIN */
-#adminMode{display:none;height:100vh}
+#adminPage{display:none;background:#121212;height:100vh}
 .admin-container{display:flex;height:100%}
 .admin-sidebar{
-width:240px;
-background:#000;
-padding:25px;
+width:230px;background:#000;padding:20px
 }
 .admin-sidebar div{
-margin-bottom:15px;
-cursor:pointer;
-padding:8px;
-border-radius:6px;
+margin-bottom:15px;padding:8px;
+cursor:pointer;border-radius:5px
 }
 .admin-sidebar div:hover{background:#222}
-.admin-main{
-flex:1;
-padding:25px;
-overflow:auto;
-background:#121212;
-}
+.admin-main{flex:1;padding:20px;overflow:auto}
 .stat{
-background:#1e1e1e;
-padding:15px;
-margin-bottom:15px;
-border-radius:10px;
+background:#1e1e1e;padding:15px;
+margin-bottom:15px;border-radius:10px
 }
-input{padding:6px;width:100%;margin:5px 0;border:none;border-radius:4px}
-canvas{background:#fff;border-radius:8px}
+input{padding:5px;margin:5px 0}
 </style>
 </head>
-
 <body>
 
 <div id="splash">
@@ -184,191 +111,201 @@ canvas{background:#fff;border-radius:8px}
 <p>Crafted With Fire. Served With Passion.</p>
 </div>
 
-<div id="storeMode">
-
+<div id="storePage">
 <header>
 <div id="logo">UrbanSlice</div>
 <div class="icons">
-<span onclick="openCart()">🛒<span class="badge" id="cartCount">0</span></span>
+<span onclick="toggleCart()">🛒</span>
+<span onclick="toggleWishlist()">❤️</span>
 </div>
 </header>
 
 <section class="hero">
 <div class="hero-content">
 <h1>URBANSLICE</h1>
-<p>Premium Pizza • Burgers • Drinks</p>
-<button onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'})">
-Explore Menu
-</button>
+<p>Premium Artisan Fast Food</p>
+<button onclick="scrollToMenu()">Explore Menu</button>
 </div>
 </section>
 
-<section class="section">
 <div class="grid" id="productGrid"></div>
-</section>
-
-<div class="overlay" id="overlay" onclick="closeCart()"></div>
+</div>
 
 <div class="panel" id="cartPanel">
-<h3>Your Cart</h3>
+<h2>Cart</h2>
 <div id="cartItems"></div>
-<div id="cartTotal"></div>
-<button onclick="checkout()">Checkout</button>
+<h3 id="total"></h3>
 </div>
 
+<div class="panel" id="wishPanel">
+<h2>Wishlist</h2>
+<div id="wishItems"></div>
 </div>
 
-<div id="adminMode">
+<div class="overlay" id="overlay" onclick="closePanels()"></div>
+
+<!-- ADMIN PAGE -->
+<div id="adminPage">
 <div class="admin-container">
 <div class="admin-sidebar">
-<h3>Admin</h3>
-<div onclick="adminPage('dashboard')">Dashboard</div>
-<div onclick="adminPage('orders')">Orders</div>
-<div onclick="adminPage('products')">Products</div>
-<div onclick="adminPage('analytics')">Analytics</div>
-<div onclick="logoutAdmin()">Logout</div>
+<h3>Admin Panel</h3>
+<div onclick="showSection('dashboard')">Dashboard</div>
+<div onclick="showSection('products')">Manage Products</div>
+<div onclick="showSection('orders')">Orders</div>
+<div onclick="exitAdmin()">Exit</div>
 </div>
 <div class="admin-main" id="adminContent"></div>
 </div>
 </div>
 
 <script>
-const Store={
-products:[
-{id:1,name:"Margherita Pizza",price:299,img:"https://images.unsplash.com/photo-1548365328-8b849e7b36a1?auto=format&fit=crop&w=600&q=60"},
-{id:2,name:"Farmhouse Pizza",price:399,img:"https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d?auto=format&fit=crop&w=600&q=60"},
-{id:3,name:"BBQ Chicken Pizza",price:449,img:"https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=600&q=60"},
-{id:4,name:"Veg Supreme Pizza",price:349,img:"https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=600&q=60"},
-{id:5,name:"Cheese Burst Pizza",price:499,img:"https://images.unsplash.com/photo-1585238342028-4a2a37c5b2a7?auto=format&fit=crop&w=600&q=60"},
-{id:6,name:"Classic Burger",price:199,img:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=60"},
-{id:7,name:"Cheese Burger",price:249,img:"https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=600&q=60"},
-{id:8,name:"Chicken Burger",price:279,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=60"},
-{id:9,name:"Double Patty Burger",price:329,img:"https://images.unsplash.com/photo-1596669500401-38c8d9e9b8a7?auto=format&fit=crop&w=600&q=60"},
-{id:10,name:"Cold Coffee",price:149,img:"https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=600&q=60"},
-{id:11,name:"Chocolate Shake",price:169,img:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=60"},
-{id:12,name:"Fresh Lime Soda",price:99,img:"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=60"}
-],
-cart:[],
-orders:[]
-};
+let products=[
+{name:"Margherita Pizza",price:299,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3"},
+{name:"Pepperoni Pizza",price:399,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a"},
+{name:"Cheese Burst Pizza",price:449,img:"https://images.unsplash.com/photo-1594007654729-407eedc4be65"},
+{name:"Veggie Supreme",price:349,img:"https://images.unsplash.com/photo-1541745537413-b8040f5e0a5e"},
+{name:"Farmhouse Pizza",price:379,img:"https://images.unsplash.com/photo-1593560708920-61dd98c46a4e"},
+{name:"Chicken Burger",price:199,img:"https://images.unsplash.com/photo-1550547660-d9450f859349"},
+{name:"Veg Burger",price:149,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd"},
+{name:"Double Patty Burger",price:249,img:"https://images.unsplash.com/photo-1553979459-d2229ba7433a"},
+{name:"Coke",price:59,img:"https://images.unsplash.com/photo-1580910051074-3eb694886505"},
+{name:"Pepsi",price:59,img:"https://images.unsplash.com/photo-1629203432180-71e7b9a7f2f0"},
+{name:"Cold Coffee",price:129,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
+{name:"Lemon Soda",price:79,img:"https://images.unsplash.com/photo-1582571352033-448e5e8bba6f"},
+{name:"Chocolate Shake",price:149,img:"https://images.unsplash.com/photo-1572490122747-3968b75cc699"},
+{name:"Garlic Bread",price:129,img:"https://images.unsplash.com/photo-1604908177522-040b82eaf6b2"},
+{name:"French Fries",price:99,img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877"}
+];
+
+let cart=[],wishlist=[],orders=[];
+let logoClicks=0;
 
 function renderProducts(){
 let grid=document.getElementById("productGrid");
 grid.innerHTML="";
-Store.products.forEach(p=>{
+products.forEach((p,i)=>{
 grid.innerHTML+=`
 <div class="card">
-<img src="${p.img}" onerror="this.src='https://via.placeholder.com/300x200'">
+<img src="${p.img}?auto=format&fit=crop&w=500&q=60">
 <div class="card-body">
-<h3>${p.name}</h3>
-<div class="price">₹${p.price}</div>
-<button class="add" onclick="addToCart(${p.id})">Add</button>
+<h4>${p.name}</h4>
+<p>₹${p.price}</p>
+<button class="add" onclick="addToCart(${i})">Add</button>
+<button class="wish" onclick="addToWish(${i})">Wish</button>
 </div>
 </div>`;
 });
 }
+renderProducts();
 
-function addToCart(id){
-let item=Store.cart.find(i=>i.id===id);
-if(item)item.qty++;
-else Store.cart.push({id,qty:1});
-updateCart();
+function addToCart(i){
+cart.push(products[i]);
+orders.push(products[i]);
+renderCart();
+}
+function addToWish(i){
+wishlist.push(products[i]);
+renderWish();
+}
+function renderCart(){
+let html="";let total=0;
+cart.forEach(c=>{html+=`<p>${c.name} - ₹${c.price}</p>`;total+=c.price});
+document.getElementById("cartItems").innerHTML=html;
+document.getElementById("total").innerText="Total: ₹"+total;
+}
+function renderWish(){
+let html="";
+wishlist.forEach(c=>html+=`<p>${c.name}</p>`);
+document.getElementById("wishItems").innerHTML=html;
 }
 
-function updateCart(){
-let div=document.getElementById("cartItems");
-div.innerHTML="";
-let total=0;
-Store.cart.forEach(c=>{
-let p=Store.products.find(x=>x.id===c.id);
-total+=p.price*c.qty;
-div.innerHTML+=`${p.name} (${c.qty})<br>`;
-});
-document.getElementById("cartTotal").innerText="Total: ₹"+total;
-document.getElementById("cartCount").innerText=Store.cart.length;
-}
-
-function openCart(){
+function toggleCart(){
 document.getElementById("cartPanel").classList.add("active");
 document.getElementById("overlay").classList.add("active");
 }
-function closeCart(){
-document.getElementById("cartPanel").classList.remove("active");
+function toggleWishlist(){
+document.getElementById("wishPanel").classList.add("active");
+document.getElementById("overlay").classList.add("active");
+}
+function closePanels(){
+document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
 document.getElementById("overlay").classList.remove("active");
 }
 
-function checkout(){
-if(Store.cart.length===0)return;
-let total=0;
-Store.cart.forEach(c=>{
-let p=Store.products.find(x=>x.id===c.id);
-total+=p.price*c.qty;
-});
-Store.orders.push({total,date:new Date().toLocaleString()});
-Store.cart=[];
-updateCart();
-alert("Order Placed!");
+function scrollToMenu(){
+window.scrollTo({top:700,behavior:"smooth"});
 }
 
-/* ADMIN */
-let taps=0;
-document.getElementById("logo").onclick=()=>{
-taps++;
-if(taps===5){
+/* ADMIN ACCESS */
+document.getElementById("logo").addEventListener("click",()=>{
+logoClicks++;
+if(logoClicks>=5){
 let pass=prompt("Enter Admin Password");
 if(pass==="shivansh@123"){
-document.getElementById("storeMode").style.display="none";
-document.getElementById("adminMode").style.display="block";
-adminPage("dashboard");
+document.getElementById("storePage").style.display="none";
+document.getElementById("adminPage").style.display="block";
+showSection("dashboard");
 }
-else alert("Wrong Password");
-taps=0;
+logoClicks=0;
 }
-};
+});
 
-function adminPage(page){
-let c=document.getElementById("adminContent");
-if(page==="dashboard"){
-let revenue=Store.orders.reduce((a,b)=>a+b.total,0);
-c.innerHTML=`
-<div class="stat">Total Orders: ${Store.orders.length}</div>
+function showSection(section){
+let content=document.getElementById("adminContent");
+if(section==="dashboard"){
+let revenue=orders.reduce((a,b)=>a+b.price,0);
+content.innerHTML=`
+<div class="stat">Total Orders: ${orders.length}</div>
 <div class="stat">Revenue: ₹${revenue}</div>
-<div class="stat">Products: ${Store.products.length}</div>`;
-}
-if(page==="orders"){
-c.innerHTML="<h3>Orders</h3>";
-Store.orders.forEach(o=>{
-c.innerHTML+=`<div class="stat">₹${o.total} - ${o.date}</div>`;
+<canvas id="chart" height="100"></canvas>
+`;
+new Chart(document.getElementById("chart"),{
+type:"bar",
+data:{labels:["Orders"],datasets:[{label:"Orders",data:[orders.length]}]}
 });
 }
-if(page==="products"){
-c.innerHTML="<h3>Products</h3>";
-Store.products.forEach((p,i)=>{
-c.innerHTML+=`
-<div class="stat">
-${p.name} - ₹${p.price}
-<button onclick="Store.products[${i}].price+=10;adminPage('products');renderProducts()">+</button>
-<button onclick="Store.products[${i}].price-=10;adminPage('products');renderProducts()">-</button>
-</div>`;
+if(section==="products"){
+let list="";
+products.forEach((p,i)=>{
+list+=`
+<p>${p.name} - ₹${p.price}
+<button onclick="increasePrice(${i})">+</button>
+<button onclick="decreasePrice(${i})">-</button>
+<button onclick="removeProduct(${i})">Remove</button>
+</p>`;
 });
+content.innerHTML=`
+<h3>Add Product</h3>
+<input id="pname" placeholder="Name">
+<input id="pprice" placeholder="Price">
+<input id="pimg" placeholder="Image URL">
+<button onclick="addProduct()">Add</button>
+<hr>${list}`;
 }
-if(page==="analytics"){
-c.innerHTML="<h3>Revenue Chart</h3><canvas id='chart' width='400' height='200'></canvas>";
-let ctx=document.getElementById("chart").getContext("2d");
-Store.orders.slice(-7).forEach((o,i)=>{
-ctx.fillStyle="orange";
-ctx.fillRect(i*50,200-o.total/5,30,o.total/5);
-});
+if(section==="orders"){
+let list="";
+orders.forEach(o=>list+=`<p>${o.name} - ₹${o.price}</p>`);
+content.innerHTML=list;
 }
 }
 
-function logoutAdmin(){
-document.getElementById("adminMode").style.display="none";
-document.getElementById("storeMode").style.display="block";
-}
-
+function increasePrice(i){products[i].price+=10;showSection("products");renderProducts();}
+function decreasePrice(i){products[i].price-=10;showSection("products");renderProducts();}
+function removeProduct(i){products.splice(i,1);showSection("products");renderProducts();}
+function addProduct(){
+products.push({
+name:document.getElementById("pname").value,
+price:Number(document.getElementById("pprice").value),
+img:document.getElementById("pimg").value
+});
+showSection("products");
 renderProducts();
-updateCart();
+}
+
+function exitAdmin(){
+document.getElementById("adminPage").style.display="none";
+document.getElementById("storePage").style.display="block";
+}
 </script>
 
 </body>
