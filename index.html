@@ -3,182 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UrbanSlice | God Tier</title>
+<title>UrbanSlice | Ultimate God Tier</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 html{scroll-behavior:smooth}
-body{
-background:#0c0c0c;
-color:#fff;
-overflow-x:hidden;
-transition:0.4s;
-}
+body{background:#0c0c0c;color:#fff;overflow-x:hidden;transition:0.4s}
 
-/* ===== LOADER ===== */
+/* LOADER */
 #loader{
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:5000;
+position:fixed;inset:0;background:#000;
+display:flex;justify-content:center;align-items:center;
+flex-direction:column;z-index:5000;
 animation:fadeOut 1s ease 2.5s forwards;
 }
-#loader h1{
-font-size:50px;
-letter-spacing:8px;
-color:#ff7a00;
-animation:pulse 1.5s infinite;
-}
-@keyframes pulse{
-0%{opacity:0.5}50%{opacity:1}100%{opacity:0.5}
-}
-@keyframes fadeOut{
-to{opacity:0;visibility:hidden}
-}
+#loader h1{font-size:50px;letter-spacing:8px;color:#ff7a00}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
-/* ===== FLOATING ORBS ===== */
-.bg-orb{
-position:fixed;
-width:500px;height:500px;
-background:radial-gradient(circle,#ff7a0030,transparent);
-border-radius:50%;
-filter:blur(80px);
-z-index:-1;
-}
-.orb1{top:-100px;left:-100px}
-.orb2{bottom:-150px;right:-100px}
-
-/* ===== NAV ===== */
+/* NAV */
 header{
 position:fixed;top:0;width:100%;
 display:flex;justify-content:space-between;
-align-items:center;
-padding:20px 80px;
+align-items:center;padding:20px 80px;
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(20px);
-z-index:1000;
+backdrop-filter:blur(20px);z-index:1000;
 }
 .logo{font-weight:800;letter-spacing:3px;color:#ff7a00}
 .nav-right{display:flex;gap:20px;align-items:center}
-.toggle{
-cursor:pointer;padding:6px 14px;
-border-radius:20px;background:#ff7a00;font-size:12px;
-}
+.toggle{cursor:pointer;padding:6px 14px;border-radius:20px;background:#ff7a00;font-size:12px}
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
 height:100vh;display:flex;justify-content:center;
-align-items:center;text-align:center;
-position:relative;overflow:hidden;
+align-items:center;text-align:center;position:relative;
 }
-.hero-content{max-width:800px;transition:transform 0.2s}
-.hero h1{font-size:70px;font-weight:800}
-.hero p{margin:20px 0;font-size:20px;color:#ccc}
+.hero-content{transition:transform 0.2s}
+.hero h1{font-size:60px;font-weight:800}
+.hero p{margin:20px 0;color:#ccc}
 .btn{
-padding:16px 40px;border:none;border-radius:50px;
+padding:14px 35px;border:none;border-radius:40px;
 background:linear-gradient(45deg,#ff7a00,#ff5100);
-color:#fff;font-size:16px;cursor:pointer;transition:0.4s;
+color:#fff;cursor:pointer;transition:0.3s;
 }
-.btn:hover{
-transform:translateY(-4px);
-box-shadow:0 15px 40px rgba(255,122,0,0.4);
-}
+.btn:hover{transform:translateY(-4px);box-shadow:0 15px 40px rgba(255,122,0,0.4)}
 
-/* ===== SECTION ===== */
-.section{padding:140px 100px}
-.section h2{text-align:center;font-size:36px;margin-bottom:80px}
+.section{padding:120px 100px}
+.section h2{text-align:center;margin-bottom:60px}
 
-/* ===== 3D TILT CARDS ===== */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:60px;
+gap:40px;
 }
 .card{
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(25px);
-border-radius:30px;
-overflow:hidden;
-transition:0.4s;
-border:1px solid rgba(255,255,255,0.08);
-transform-style:preserve-3d;
+border-radius:25px;overflow:hidden;
+transition:0.4s;transform-style:preserve-3d;
 }
-.card:hover{
-box-shadow:0 20px 60px rgba(0,0,0,0.5);
-}
-.card img{
-width:100%;height:260px;object-fit:cover;
-}
-.card-body{padding:30px}
-.price{color:#ff7a00;margin:15px 0}
-.card button{
-width:100%;padding:12px;border:none;
-border-radius:12px;background:#ff7a00;
-color:#fff;cursor:pointer;
-}
+.card img{width:100%;height:220px;object-fit:cover}
+.card-body{padding:20px}
+.price{color:#ff7a00;margin:10px 0}
 
-/* ===== CART ===== */
+/* CART */
 .panel{
 position:fixed;right:0;top:0;
-width:380px;height:100vh;
-background:#111;padding:30px;
-overflow:auto;
-transform:translateX(100%);
-transition:0.5s cubic-bezier(.77,0,.18,1);
-z-index:2000;
+width:350px;height:100vh;background:#111;
+padding:20px;transform:translateX(100%);
+transition:0.4s;z-index:2000;overflow:auto;
 }
 .panel.active{transform:translateX(0)}
 .overlay{
-position:fixed;inset:0;
-background:rgba(0,0,0,0.6);
+position:fixed;inset:0;background:rgba(0,0,0,0.6);
 display:none;z-index:1500;
 }
 .overlay.active{display:block}
 
-/* ===== CHECKOUT MODAL ===== */
+/* MODAL */
 .modal{
-position:fixed;inset:0;
+position:fixed;inset:0;background:rgba(0,0,0,0.7);
 display:none;justify-content:center;align-items:center;
-background:rgba(0,0,0,0.7);z-index:3000;
+z-index:3000;
 }
 .modal-content{
-background:#1c1c1c;padding:40px;
-border-radius:20px;text-align:center;
-animation:pop 0.4s ease;
-}
-@keyframes pop{
-from{transform:scale(0.7);opacity:0}
-to{transform:scale(1);opacity:1}
+background:#1c1c1c;padding:40px;border-radius:20px;text-align:center;
 }
 
-/* ===== LIGHT MODE ===== */
-.light{background:#f5f5f5;color:#111}
-.light header{background:rgba(255,255,255,0.6)}
-.light .card{background:rgba(255,255,255,0.7)}
-.light .panel{background:#fff;color:#111}
-.light .modal-content{background:#fff;color:#111}
-
+/* ADMIN PANEL */
+#adminPanel{
+position:fixed;inset:0;background:#0c0c0c;
+color:white;display:none;z-index:6000;
+overflow:auto;padding:40px;
+}
+input{padding:8px;margin-bottom:10px}
+button{cursor:pointer}
 </style>
 </head>
+
 <body>
 
-<div id="loader">
-<h1>URBANSLICE</h1>
-<p>Crafting Experience...</p>
-</div>
-
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
+<div id="loader"><h1>URBANSLICE</h1><p>Loading Experience...</p></div>
 
 <header>
 <div class="logo">URBANSLICE</div>
 <div class="nav-right">
-<div class="toggle" onclick="toggleMode()">Toggle Mode</div>
+<div class="toggle" onclick="toggleMode()">Toggle</div>
 <div onclick="toggleCart()" style="cursor:pointer">🛒 <span id="count">0</span></div>
 </div>
 </header>
@@ -186,7 +115,7 @@ to{transform:scale(1);opacity:1}
 <section class="hero" id="hero">
 <div class="hero-content" id="heroContent">
 <h1>Luxury Taste Experience</h1>
-<p>Premium handcrafted pizza & gourmet burgers.</p>
+<p>Premium handcrafted pizza & burgers.</p>
 <button class="btn" onclick="scrollMenu()">Explore Menu</button>
 </div>
 </section>
@@ -200,7 +129,7 @@ to{transform:scale(1);opacity:1}
 <h2>Your Cart</h2>
 <div id="cartItems"></div>
 <h3 id="total"></h3>
-<button class="btn" onclick="checkout()" style="margin-top:20px;width:100%">Checkout</button>
+<button class="btn" onclick="checkout()" style="width:100%;margin-top:10px">Checkout</button>
 </div>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
@@ -208,26 +137,58 @@ to{transform:scale(1);opacity:1}
 <div class="modal" id="modal">
 <div class="modal-content">
 <h2>Payment Successful 🎉</h2>
-<p>Thank you for choosing UrbanSlice.</p>
-<br>
 <button class="btn" onclick="closeModal()">Close</button>
+</div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+<h1>Admin Dashboard</h1>
+<button onclick="closeAdmin()">Close</button>
+
+<div id="adminLogin">
+<h2>Login</h2>
+<input type="password" id="adminPass" placeholder="Enter Password">
+<button onclick="loginAdmin()">Login</button>
+<p id="loginError" style="color:red"></p>
+</div>
+
+<div id="adminContent" style="display:none">
+<h2>Analytics</h2>
+<p>Total Revenue: ₹<span id="adminRevenue">0</span></p>
+<p>Total Orders: <span id="adminOrders">0</span></p>
+<p>Total Products: <span id="adminProducts">0</span></p>
+
+<hr><h2>Add Product</h2>
+<input id="newName" placeholder="Name"><br>
+<input id="newPrice" type="number" placeholder="Price"><br>
+<input id="newImg" placeholder="Image URL"><br>
+<button onclick="addProduct()">Add Product</button>
+
+<hr><h2>Products</h2>
+<div id="adminProductList"></div>
+
+<hr><h2>Orders</h2>
+<div id="adminOrderList"></div>
+<button onclick="clearOrders()">Clear Orders</button>
 </div>
 </div>
 
 <audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
 <script>
+
 let products=[
-{name:"Truffle Margherita",price:499,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=60"},
-{name:"Luxury Pepperoni",price:599,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a?auto=format&fit=crop&w=900&q=60"},
-{name:"Smoked Chicken Burger",price:349,img:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=60"},
-{name:"Gourmet Veg Burger",price:299,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=60"}
+{name:"Truffle Pizza",price:499,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3"},
+{name:"Pepperoni Pizza",price:599,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a"},
+{name:"Chicken Burger",price:349,img:"https://images.unsplash.com/photo-1550547660-d9450f859349"}
 ];
 
 let cart=[];
 
 function renderProducts(){
 let grid=document.getElementById("productGrid");
+grid.innerHTML="";
 products.forEach((p,i)=>{
 grid.innerHTML+=`
 <div class="card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
@@ -235,9 +196,8 @@ grid.innerHTML+=`
 <div class="card-body">
 <h3>${p.name}</h3>
 <div class="price">₹${p.price}</div>
-<button onclick="addToCart(${i})">Add to Cart</button>
-</div>
-</div>`;
+<button class="btn" onclick="addToCart(${i})">Add to Cart</button>
+</div></div>`;
 });
 }
 renderProducts();
@@ -248,12 +208,13 @@ cart.push(products[i]);
 updateCart();
 }
 function updateCart(){
-let html="";let total=0;
-cart.forEach(c=>{html+=`<p>${c.name} - ₹${c.price}</p>`;total+=c.price});
+let total=0;let html="";
+cart.forEach(c=>{total+=c.price;html+=`<p>${c.name} - ₹${c.price}</p>`});
 document.getElementById("cartItems").innerHTML=html;
 document.getElementById("total").innerText="Total: ₹"+total;
 document.getElementById("count").innerText=cart.length;
 }
+
 function toggleCart(){
 document.getElementById("cartPanel").classList.add("active");
 document.getElementById("overlay").classList.add("active");
@@ -268,32 +229,81 @@ function checkout(){
 document.getElementById("modal").style.display="flex";
 cart=[];updateCart();
 }
-function closeModal(){
-document.getElementById("modal").style.display="none";
-closeCart();
-}
-
-/* HERO PARALLAX */
-document.getElementById("hero").addEventListener("mousemove",(e)=>{
-let x=(window.innerWidth/2-e.pageX)/40;
-let y=(window.innerHeight/2-e.pageY)/40;
-document.getElementById("heroContent").style.transform=`translate(${x}px,${y}px)`;
-});
+function closeModal(){document.getElementById("modal").style.display="none";closeCart()}
 
 /* 3D TILT */
 function tilt(e,el){
 let rect=el.getBoundingClientRect();
 let x=e.clientX-rect.left;
 let y=e.clientY-rect.top;
-let centerX=rect.width/2;
-let centerY=rect.height/2;
-let rotateX=-(y-centerY)/15;
-let rotateY=(x-centerX)/15;
+let rotateX=-(y-rect.height/2)/15;
+let rotateY=(x-rect.width/2)/15;
 el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 }
-function resetTilt(el){
-el.style.transform="rotateX(0) rotateY(0)";
+function resetTilt(el){el.style.transform="rotateX(0) rotateY(0)"}
+
+/* ADMIN ACCESS */
+document.addEventListener("keydown",function(e){
+if(e.ctrlKey && e.shiftKey && e.key==="A"){
+document.getElementById("adminPanel").style.display="block";
 }
+});
+
+function closeAdmin(){document.getElementById("adminPanel").style.display="none"}
+
+function loginAdmin(){
+let pass=document.getElementById("adminPass").value;
+if(pass==="shivansh@123"){
+document.getElementById("adminLogin").style.display="none";
+document.getElementById("adminContent").style.display="block";
+loadAdminData();
+}else{
+document.getElementById("loginError").innerText="Wrong Password";
+}
+}
+
+function loadAdminData(){
+document.getElementById("adminRevenue").innerText=
+cart.reduce((sum,p)=>sum+p.price,0);
+document.getElementById("adminOrders").innerText=cart.length;
+document.getElementById("adminProducts").innerText=products.length;
+
+let html="";
+products.forEach((p,i)=>{
+html+=`${p.name} - ₹${p.price} <button onclick="deleteProduct(${i})">Delete</button><br>`;
+});
+document.getElementById("adminProductList").innerHTML=html;
+
+let orderHTML="";
+cart.forEach(c=>orderHTML+=`<p>${c.name} - ₹${c.price}</p>`);
+document.getElementById("adminOrderList").innerHTML=orderHTML;
+}
+
+function addProduct(){
+let name=newName.value;
+let price=parseInt(newPrice.value);
+let img=newImg.value;
+if(name && price && img){
+products.push({name,price,img});
+renderProducts();
+loadAdminData();
+alert("Product Added");
+}
+}
+
+function deleteProduct(i){
+products.splice(i,1);
+renderProducts();
+loadAdminData();
+}
+
+function clearOrders(){
+cart=[];
+updateCart();
+loadAdminData();
+alert("Orders Cleared");
+}
+
 </script>
 
 </body>
