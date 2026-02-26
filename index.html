@@ -1,197 +1,241 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UrbanSlice Premium</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>UrbanSlice | God Tier</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
-body{background:#0e0e0e;color:#fff;overflow-x:hidden}
-
-/* SPLASH */
-#splash{
-position:fixed;top:0;left:0;width:100%;height:100vh;
-background:#000;display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-z-index:5000;animation:fadeOut 1s ease forwards;
-animation-delay:3s;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html{scroll-behavior:smooth}
+body{
+background:#0c0c0c;
+color:#fff;
+overflow-x:hidden;
+transition:0.4s;
 }
-#splash h1{font-size:50px;color:orange;letter-spacing:4px}
-#splash p{margin-top:15px;color:#ccc}
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
-/* HEADER */
+/* ===== LOADER ===== */
+#loader{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:5000;
+animation:fadeOut 1s ease 2.5s forwards;
+}
+#loader h1{
+font-size:50px;
+letter-spacing:8px;
+color:#ff7a00;
+animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+0%{opacity:0.5}50%{opacity:1}100%{opacity:0.5}
+}
+@keyframes fadeOut{
+to{opacity:0;visibility:hidden}
+}
+
+/* ===== FLOATING ORBS ===== */
+.bg-orb{
+position:fixed;
+width:500px;height:500px;
+background:radial-gradient(circle,#ff7a0030,transparent);
+border-radius:50%;
+filter:blur(80px);
+z-index:-1;
+}
+.orb1{top:-100px;left:-100px}
+.orb2{bottom:-150px;right:-100px}
+
+/* ===== NAV ===== */
 header{
+position:fixed;top:0;width:100%;
 display:flex;justify-content:space-between;
-align-items:center;padding:20px 40px;
-background:#111;position:sticky;top:0;z-index:1000
+align-items:center;
+padding:20px 80px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+z-index:1000;
 }
-#logo{font-size:26px;color:orange;font-weight:bold;cursor:pointer}
-.icons span{margin-left:20px;cursor:pointer;font-size:20px}
+.logo{font-weight:800;letter-spacing:3px;color:#ff7a00}
+.nav-right{display:flex;gap:20px;align-items:center}
+.toggle{
+cursor:pointer;padding:6px 14px;
+border-radius:20px;background:#ff7a00;font-size:12px;
+}
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
-height:70vh;
-background:url('https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d?auto=format&fit=crop&w=1600&q=80') center/cover;
-display:flex;justify-content:center;align-items:center;
-position:relative;text-align:center
+height:100vh;display:flex;justify-content:center;
+align-items:center;text-align:center;
+position:relative;overflow:hidden;
 }
-.hero::after{
-content:'';position:absolute;width:100%;height:100%;
-background:rgba(0,0,0,0.6)
+.hero-content{max-width:800px;transition:transform 0.2s}
+.hero h1{font-size:70px;font-weight:800}
+.hero p{margin:20px 0;font-size:20px;color:#ccc}
+.btn{
+padding:16px 40px;border:none;border-radius:50px;
+background:linear-gradient(45deg,#ff7a00,#ff5100);
+color:#fff;font-size:16px;cursor:pointer;transition:0.4s;
 }
-.hero-content{position:relative;z-index:2}
-.hero-content h1{font-size:60px;letter-spacing:5px}
-.hero-content p{margin:15px 0;font-size:20px;color:#ddd}
-.hero-content button{
-padding:12px 30px;border:none;border-radius:30px;
-background:orange;color:#fff;cursor:pointer;
-font-size:16px
+.btn:hover{
+transform:translateY(-4px);
+box-shadow:0 15px 40px rgba(255,122,0,0.4);
 }
 
-/* GRID */
+/* ===== SECTION ===== */
+.section{padding:140px 100px}
+.section h2{text-align:center;font-size:36px;margin-bottom:80px}
+
+/* ===== 3D TILT CARDS ===== */
 .grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:25px;padding:50px
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:60px;
 }
 .card{
-background:#1a1a1a;border-radius:15px;
-overflow:hidden;transition:0.3s;
-box-shadow:0 10px 25px rgba(0,0,0,0.5)
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+border-radius:30px;
+overflow:hidden;
+transition:0.4s;
+border:1px solid rgba(255,255,255,0.08);
+transform-style:preserve-3d;
 }
-.card:hover{transform:translateY(-8px)}
-.card img{width:100%;height:170px;object-fit:cover}
-.card-body{padding:15px}
-button{
-padding:6px 10px;border:none;border-radius:6px;
-cursor:pointer;margin-top:6px
+.card:hover{
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
 }
-.add{background:orange;color:#fff}
-.wish{background:#333;color:#fff;margin-left:5px}
+.card img{
+width:100%;height:260px;object-fit:cover;
+}
+.card-body{padding:30px}
+.price{color:#ff7a00;margin:15px 0}
+.card button{
+width:100%;padding:12px;border:none;
+border-radius:12px;background:#ff7a00;
+color:#fff;cursor:pointer;
+}
 
-/* SIDEBAR */
+/* ===== CART ===== */
 .panel{
-position:fixed;right:0;top:0;width:320px;height:100vh;
-background:#111;padding:20px;overflow:auto;
+position:fixed;right:0;top:0;
+width:380px;height:100vh;
+background:#111;padding:30px;
+overflow:auto;
 transform:translateX(100%);
-transition:0.4s;z-index:3000
+transition:0.5s cubic-bezier(.77,0,.18,1);
+z-index:2000;
 }
 .panel.active{transform:translateX(0)}
 .overlay{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.6);display:none;z-index:2000
+position:fixed;inset:0;
+background:rgba(0,0,0,0.6);
+display:none;z-index:1500;
 }
 .overlay.active{display:block}
 
-/* ADMIN */
-#adminPage{display:none;background:#121212;height:100vh}
-.admin-container{display:flex;height:100%}
-.admin-sidebar{
-width:230px;background:#000;padding:20px
+/* ===== CHECKOUT MODAL ===== */
+.modal{
+position:fixed;inset:0;
+display:none;justify-content:center;align-items:center;
+background:rgba(0,0,0,0.7);z-index:3000;
 }
-.admin-sidebar div{
-margin-bottom:15px;padding:8px;
-cursor:pointer;border-radius:5px
+.modal-content{
+background:#1c1c1c;padding:40px;
+border-radius:20px;text-align:center;
+animation:pop 0.4s ease;
 }
-.admin-sidebar div:hover{background:#222}
-.admin-main{flex:1;padding:20px;overflow:auto}
-.stat{
-background:#1e1e1e;padding:15px;
-margin-bottom:15px;border-radius:10px
+@keyframes pop{
+from{transform:scale(0.7);opacity:0}
+to{transform:scale(1);opacity:1}
 }
-input{padding:5px;margin:5px 0}
+
+/* ===== LIGHT MODE ===== */
+.light{background:#f5f5f5;color:#111}
+.light header{background:rgba(255,255,255,0.6)}
+.light .card{background:rgba(255,255,255,0.7)}
+.light .panel{background:#fff;color:#111}
+.light .modal-content{background:#fff;color:#111}
+
 </style>
 </head>
 <body>
 
-<div id="splash">
-<h1>UrbanSlice</h1>
-<p>Crafted With Fire. Served With Passion.</p>
+<div id="loader">
+<h1>URBANSLICE</h1>
+<p>Crafting Experience...</p>
 </div>
 
-<div id="storePage">
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
 <header>
-<div id="logo">UrbanSlice</div>
-<div class="icons">
-<span onclick="toggleCart()">🛒</span>
-<span onclick="toggleWishlist()">❤️</span>
+<div class="logo">URBANSLICE</div>
+<div class="nav-right">
+<div class="toggle" onclick="toggleMode()">Toggle Mode</div>
+<div onclick="toggleCart()" style="cursor:pointer">🛒 <span id="count">0</span></div>
 </div>
 </header>
 
-<section class="hero">
-<div class="hero-content">
-<h1>URBANSLICE</h1>
-<p>Premium Artisan Fast Food</p>
-<button onclick="scrollToMenu()">Explore Menu</button>
+<section class="hero" id="hero">
+<div class="hero-content" id="heroContent">
+<h1>Luxury Taste Experience</h1>
+<p>Premium handcrafted pizza & gourmet burgers.</p>
+<button class="btn" onclick="scrollMenu()">Explore Menu</button>
 </div>
 </section>
 
+<section class="section" id="menu">
+<h2>Signature Selection</h2>
 <div class="grid" id="productGrid"></div>
-</div>
+</section>
 
 <div class="panel" id="cartPanel">
-<h2>Cart</h2>
+<h2>Your Cart</h2>
 <div id="cartItems"></div>
 <h3 id="total"></h3>
+<button class="btn" onclick="checkout()" style="margin-top:20px;width:100%">Checkout</button>
 </div>
 
-<div class="panel" id="wishPanel">
-<h2>Wishlist</h2>
-<div id="wishItems"></div>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<h2>Payment Successful 🎉</h2>
+<p>Thank you for choosing UrbanSlice.</p>
+<br>
+<button class="btn" onclick="closeModal()">Close</button>
+</div>
 </div>
 
-<div class="overlay" id="overlay" onclick="closePanels()"></div>
-
-<!-- ADMIN PAGE -->
-<div id="adminPage">
-<div class="admin-container">
-<div class="admin-sidebar">
-<h3>Admin Panel</h3>
-<div onclick="showSection('dashboard')">Dashboard</div>
-<div onclick="showSection('products')">Manage Products</div>
-<div onclick="showSection('orders')">Orders</div>
-<div onclick="exitAdmin()">Exit</div>
-</div>
-<div class="admin-main" id="adminContent"></div>
-</div>
-</div>
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
 <script>
 let products=[
-{name:"Margherita Pizza",price:299,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3"},
-{name:"Pepperoni Pizza",price:399,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a"},
-{name:"Cheese Burst Pizza",price:449,img:"https://images.unsplash.com/photo-1594007654729-407eedc4be65"},
-{name:"Veggie Supreme",price:349,img:"https://images.unsplash.com/photo-1541745537413-b8040f5e0a5e"},
-{name:"Farmhouse Pizza",price:379,img:"https://images.unsplash.com/photo-1593560708920-61dd98c46a4e"},
-{name:"Chicken Burger",price:199,img:"https://images.unsplash.com/photo-1550547660-d9450f859349"},
-{name:"Veg Burger",price:149,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd"},
-{name:"Double Patty Burger",price:249,img:"https://images.unsplash.com/photo-1553979459-d2229ba7433a"},
-{name:"Coke",price:59,img:"https://images.unsplash.com/photo-1580910051074-3eb694886505"},
-{name:"Pepsi",price:59,img:"https://images.unsplash.com/photo-1629203432180-71e7b9a7f2f0"},
-{name:"Cold Coffee",price:129,img:"https://images.unsplash.com/photo-1509042239860-f550ce710b93"},
-{name:"Lemon Soda",price:79,img:"https://images.unsplash.com/photo-1582571352033-448e5e8bba6f"},
-{name:"Chocolate Shake",price:149,img:"https://images.unsplash.com/photo-1572490122747-3968b75cc699"},
-{name:"Garlic Bread",price:129,img:"https://images.unsplash.com/photo-1604908177522-040b82eaf6b2"},
-{name:"French Fries",price:99,img:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877"}
+{name:"Truffle Margherita",price:499,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=60"},
+{name:"Luxury Pepperoni",price:599,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a?auto=format&fit=crop&w=900&q=60"},
+{name:"Smoked Chicken Burger",price:349,img:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=60"},
+{name:"Gourmet Veg Burger",price:299,img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=60"}
 ];
 
-let cart=[],wishlist=[],orders=[];
-let logoClicks=0;
+let cart=[];
 
 function renderProducts(){
 let grid=document.getElementById("productGrid");
-grid.innerHTML="";
 products.forEach((p,i)=>{
 grid.innerHTML+=`
-<div class="card">
-<img src="${p.img}?auto=format&fit=crop&w=500&q=60">
+<div class="card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+<img src="${p.img}">
 <div class="card-body">
-<h4>${p.name}</h4>
-<p>₹${p.price}</p>
-<button class="add" onclick="addToCart(${i})">Add</button>
-<button class="wish" onclick="addToWish(${i})">Wish</button>
+<h3>${p.name}</h3>
+<div class="price">₹${p.price}</div>
+<button onclick="addToCart(${i})">Add to Cart</button>
 </div>
 </div>`;
 });
@@ -199,112 +243,56 @@ grid.innerHTML+=`
 renderProducts();
 
 function addToCart(i){
+document.getElementById("sound").play();
 cart.push(products[i]);
-orders.push(products[i]);
-renderCart();
+updateCart();
 }
-function addToWish(i){
-wishlist.push(products[i]);
-renderWish();
-}
-function renderCart(){
+function updateCart(){
 let html="";let total=0;
 cart.forEach(c=>{html+=`<p>${c.name} - ₹${c.price}</p>`;total+=c.price});
 document.getElementById("cartItems").innerHTML=html;
 document.getElementById("total").innerText="Total: ₹"+total;
+document.getElementById("count").innerText=cart.length;
 }
-function renderWish(){
-let html="";
-wishlist.forEach(c=>html+=`<p>${c.name}</p>`);
-document.getElementById("wishItems").innerHTML=html;
-}
-
 function toggleCart(){
 document.getElementById("cartPanel").classList.add("active");
 document.getElementById("overlay").classList.add("active");
 }
-function toggleWishlist(){
-document.getElementById("wishPanel").classList.add("active");
-document.getElementById("overlay").classList.add("active");
-}
-function closePanels(){
-document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+function closeCart(){
+document.getElementById("cartPanel").classList.remove("active");
 document.getElementById("overlay").classList.remove("active");
 }
-
-function scrollToMenu(){
-window.scrollTo({top:700,behavior:"smooth"});
+function scrollMenu(){document.getElementById("menu").scrollIntoView()}
+function toggleMode(){document.body.classList.toggle("light")}
+function checkout(){
+document.getElementById("modal").style.display="flex";
+cart=[];updateCart();
+}
+function closeModal(){
+document.getElementById("modal").style.display="none";
+closeCart();
 }
 
-/* ADMIN ACCESS */
-document.getElementById("logo").addEventListener("click",()=>{
-logoClicks++;
-if(logoClicks>=5){
-let pass=prompt("Enter Admin Password");
-if(pass==="shivansh@123"){
-document.getElementById("storePage").style.display="none";
-document.getElementById("adminPage").style.display="block";
-showSection("dashboard");
-}
-logoClicks=0;
-}
+/* HERO PARALLAX */
+document.getElementById("hero").addEventListener("mousemove",(e)=>{
+let x=(window.innerWidth/2-e.pageX)/40;
+let y=(window.innerHeight/2-e.pageY)/40;
+document.getElementById("heroContent").style.transform=`translate(${x}px,${y}px)`;
 });
 
-function showSection(section){
-let content=document.getElementById("adminContent");
-if(section==="dashboard"){
-let revenue=orders.reduce((a,b)=>a+b.price,0);
-content.innerHTML=`
-<div class="stat">Total Orders: ${orders.length}</div>
-<div class="stat">Revenue: ₹${revenue}</div>
-<canvas id="chart" height="100"></canvas>
-`;
-new Chart(document.getElementById("chart"),{
-type:"bar",
-data:{labels:["Orders"],datasets:[{label:"Orders",data:[orders.length]}]}
-});
+/* 3D TILT */
+function tilt(e,el){
+let rect=el.getBoundingClientRect();
+let x=e.clientX-rect.left;
+let y=e.clientY-rect.top;
+let centerX=rect.width/2;
+let centerY=rect.height/2;
+let rotateX=-(y-centerY)/15;
+let rotateY=(x-centerX)/15;
+el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 }
-if(section==="products"){
-let list="";
-products.forEach((p,i)=>{
-list+=`
-<p>${p.name} - ₹${p.price}
-<button onclick="increasePrice(${i})">+</button>
-<button onclick="decreasePrice(${i})">-</button>
-<button onclick="removeProduct(${i})">Remove</button>
-</p>`;
-});
-content.innerHTML=`
-<h3>Add Product</h3>
-<input id="pname" placeholder="Name">
-<input id="pprice" placeholder="Price">
-<input id="pimg" placeholder="Image URL">
-<button onclick="addProduct()">Add</button>
-<hr>${list}`;
-}
-if(section==="orders"){
-let list="";
-orders.forEach(o=>list+=`<p>${o.name} - ₹${o.price}</p>`);
-content.innerHTML=list;
-}
-}
-
-function increasePrice(i){products[i].price+=10;showSection("products");renderProducts();}
-function decreasePrice(i){products[i].price-=10;showSection("products");renderProducts();}
-function removeProduct(i){products.splice(i,1);showSection("products");renderProducts();}
-function addProduct(){
-products.push({
-name:document.getElementById("pname").value,
-price:Number(document.getElementById("pprice").value),
-img:document.getElementById("pimg").value
-});
-showSection("products");
-renderProducts();
-}
-
-function exitAdmin(){
-document.getElementById("adminPage").style.display="none";
-document.getElementById("storePage").style.display="block";
+function resetTilt(el){
+el.style.transform="rotateX(0) rotateY(0)";
 }
 </script>
 
