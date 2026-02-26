@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UrbanSlice Ultra</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, sans-serif}
+body{background:#111;color:#fff;overflow-x:hidden}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:#000;position:sticky;top:0;z-index:1000}
+#logo{font-size:24px;font-weight:bold;cursor:pointer}
+.icons span{margin-left:20px;cursor:pointer;position:relative}
+.badge{position:absolute;top:-8px;right:-10px;background:red;border-radius:50%;padding:3px 7px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:40px}
+.card{background:#1a1a1a;border-radius:12px;overflow:hidden;transition:0.3s}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-body{padding:15px}
+.card-body h3{margin-bottom:5px}
+.card-body p{font-size:14px;color:#bbb;margin-bottom:8px}
+.price{font-weight:bold;margin-bottom:10px}
+button{padding:8px 12px;border:none;border-radius:6px;cursor:pointer}
+.add{background:#ff6b00;color:#fff}
+.wish{background:#444;color:#fff;margin-left:5px}
+.drawer{position:fixed;top:0;right:0;width:350px;height:100vh;background:#1b1b1b;transform:translateX(100%);transition:0.4s;padding:20px;overflow-y:auto;z-index:2000}
+.drawer.active{transform:translateX(0)}
+.drawer h2{margin-bottom:20px}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:0.3s;z-index:1500}
+.overlay.active{opacity:1;pointer-events:all}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px}
+.qty button{padding:2px 6px;margin:0 3px}
+.total{margin-top:15px;font-weight:bold}
+.admin-box{margin-bottom:20px;padding:10px;background:#222;border-radius:8px}
+input{padding:6px;width:100%;margin-top:5px;margin-bottom:10px;border-radius:4px;border:none}
+canvas{background:#fff;border-radius:8px;margin-top:10px}
+</style>
+</head>
+
+<body>
+
+<header>
+<div id="logo">UrbanSlice</div>
+<div class="icons">
+<span onclick="openDrawer('wishlistDrawer')">❤️</span>
+<span onclick="openDrawer('cartDrawer')">🛒<span class="badge" id="cartCount">0</span></span>
+</div>
+</header>
+
+<div class="grid" id="productGrid"></div>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="drawer" id="cartDrawer">
+<h2>Cart</h2>
+<div id="cartItems"></div>
+<div class="total" id="cartTotal"></div>
+<button onclick="checkout()">Checkout</button>
+</div>
+
+<div class="drawer" id="wishlistDrawer">
+<h2>Wishlist</h2>
+<div id="wishlistItems"></div>
+</div>
+
+<div class="drawer" id="adminDrawer">
+<h2>Admin Panel</h2>
+<div id="adminStats"></div>
+<div class="admin-box">
+<h3>Add Product</h3>
+<input id="newName" placeholder="Name">
+<input id="newPrice" placeholder="Price">
+<button onclick="addProduct()">Add</button>
+</div>
+<canvas id="chart" width="300" height="150"></canvas>
+</div>
+
+<script>
+
+const Store={
+products:[],
+cart:[],
+wishlist:[],
+orders:[]
+};
+
+const images=[
+"https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d",
+"https://images.unsplash.com/photo-1548365328-8b849e7b36a1",
+"https://images.unsplash.com/photo-1594007654729-407eedc4be65",
+"https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+"https://images.unsplash.com/photo-1593560708920-61dd98c46a4e",
+"https://images.unsplash.com/photo-1571091718767-18b5b1457add",
+"https://images.unsplash.com/photo-1585238342028-4a2a37c5b2a7",
+"https://images.unsplash.com/photo-1550547660-d9450f859349",
+"https://images.unsplash.com/photo-1594007654729-407eedc4be65",
+"https://images.unsplash.com/photo-1601924582975-7e59f6b79f4d"
+];
+
+for(let i=1;i<=20;i++){
+Store.products.push({
+id:i,
+name:"Pizza Special "+i,
+desc:"Delicious handcrafted pizza with premium toppings.",
+price:200+i*10,
+img:images[i%images.length]+"?auto=format&fit=crop&w=600&q=60"
+});
+}
+
+function renderProducts(){
+const grid=document.getElementById("productGrid");
+grid.innerHTML="";
+Store.products.forEach(p=>{
+grid.innerHTML+=`
+<div class="card">
+<img src="${p.img}" onerror="this.src='https://via.placeholder.com/300x200'">
+<div class="card-body">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+<div class="price">₹${p.price}</div>
+<button class="add" onclick="addToCart(${p.id})">Add</button>
+<button class="wish" onclick="toggleWish(${p.id})">❤</button>
+</div>
+</div>`;
+});
+}
+
+function openDrawer(id){
+document.getElementById(id).classList.add("active");
+document.getElementById("overlay").classList.add("active");
+}
+function closeAll(){
+document.querySelectorAll(".drawer").forEach(d=>d.classList.remove("active"));
+document.getElementById("overlay").classList.remove("active");
+}
+
+function addToCart(id){
+let item=Store.cart.find(i=>i.id===id);
+if(item){item.qty++}
+else{Store.cart.push({id,qty:1})}
+updateCart();
+}
+
+function updateCart(){
+const div=document.getElementById("cartItems");
+div.innerHTML="";
+let total=0;
+Store.cart.forEach(c=>{
+const p=Store.products.find(x=>x.id===c.id);
+total+=p.price*c.qty;
+div.innerHTML+=`
+<div class="cart-item">
+${p.name}
+<div class="qty">
+<button onclick="changeQty(${c.id},-1)">-</button>
+${c.qty}
+<button onclick="changeQty(${c.id},1)">+</button>
+</div>
+</div>`;
+});
+document.getElementById("cartTotal").innerText="Total: ₹"+total;
+document.getElementById("cartCount").innerText=Store.cart.length;
+}
+
+function changeQty(id,val){
+let item=Store.cart.find(i=>i.id===id);
+item.qty+=val;
+if(item.qty<=0){Store.cart=Store.cart.filter(i=>i.id!==id)}
+updateCart();
+}
+
+function toggleWish(id){
+if(Store.wishlist.includes(id)){
+Store.wishlist=Store.wishlist.filter(i=>i!==id)
+}else{Store.wishlist.push(id)}
+renderWishlist();
+}
+
+function renderWishlist(){
+const div=document.getElementById("wishlistItems");
+div.innerHTML="";
+Store.wishlist.forEach(id=>{
+const p=Store.products.find(x=>x.id===id);
+div.innerHTML+=`<div>${p.name}</div>`;
+});
+}
+
+function checkout(){
+if(Store.cart.length===0)return;
+let total=0;
+Store.cart.forEach(c=>{
+const p=Store.products.find(x=>x.id===c.id);
+total+=p.price*c.qty;
+});
+Store.orders.push({total,date:new Date()});
+Store.cart=[];
+updateCart();
+alert("Order Placed!");
+}
+
+let tap=0;
+document.getElementById("logo").onclick=()=>{
+tap++;
+if(tap===5){
+const pass=prompt("Enter Admin Password");
+if(pass==="shivansh@123"){openDrawer("adminDrawer");renderAdmin();}
+else alert("Wrong Password");
+tap=0;
+}
+};
+
+function renderAdmin(){
+let revenue=Store.orders.reduce((a,b)=>a+b.total,0);
+document.getElementById("adminStats").innerHTML=
+"Total Orders: "+Store.orders.length+
+"<br>Total Revenue: ₹"+revenue;
+drawChart();
+}
+
+function drawChart(){
+const ctx=document.getElementById("chart").getContext("2d");
+ctx.clearRect(0,0,300,150);
+Store.orders.slice(-7).forEach((o,i)=>{
+ctx.fillStyle="orange";
+ctx.fillRect(i*40,150-o.total/10,30,o.total/10);
+});
+}
+
+function addProduct(){
+const name=document.getElementById("newName").value;
+const price=parseInt(document.getElementById("newPrice").value);
+if(!name||!price)return;
+Store.products.push({
+id:Date.now(),
+name,
+desc:"Admin added item",
+price,
+img:images[0]+"?auto=format&fit=crop&w=600&q=60"
+});
+renderProducts();
+}
+
+renderProducts();
+updateCart();
+
+</script>
+
+</body>
+</html>
