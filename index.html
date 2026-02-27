@@ -5,106 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UrbanSlice | Ultimate God Tier</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-html{scroll-behavior:smooth}
-body{background:#0c0c0c;color:#fff;overflow-x:hidden;transition:0.4s}
-
-/* LOADER */
-#loader{
-position:fixed;inset:0;background:#000;
-display:flex;justify-content:center;align-items:center;
-flex-direction:column;z-index:5000;
-animation:fadeOut 1s ease 2.5s forwards;
-}
-#loader h1{font-size:50px;letter-spacing:8px;color:#ff7a00}
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
-
-/* NAV */
-header{
-position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;
-align-items:center;padding:20px 80px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(20px);z-index:1000;
-}
-.logo{font-weight:800;letter-spacing:3px;color:#ff7a00}
-.nav-right{display:flex;gap:20px;align-items:center}
-.toggle{cursor:pointer;padding:6px 14px;border-radius:20px;background:#ff7a00;font-size:12px}
-
-/* HERO */
-.hero{
-height:100vh;display:flex;justify-content:center;
-align-items:center;text-align:center;position:relative;
-}
-.hero-content{transition:transform 0.2s}
-.hero h1{font-size:60px;font-weight:800}
-.hero p{margin:20px 0;color:#ccc}
-.btn{
-padding:14px 35px;border:none;border-radius:40px;
-background:linear-gradient(45deg,#ff7a00,#ff5100);
-color:#fff;cursor:pointer;transition:0.3s;
-}
-.btn:hover{transform:translateY(-4px);box-shadow:0 15px 40px rgba(255,122,0,0.4)}
-
-.section{padding:120px 100px}
-.section h2{text-align:center;margin-bottom:60px}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:40px;
-}
-.card{
-background:rgba(255,255,255,0.05);
-border-radius:25px;overflow:hidden;
-transition:0.4s;transform-style:preserve-3d;
-}
-.card img{width:100%;height:220px;object-fit:cover}
-.card-body{padding:20px}
-.price{color:#ff7a00;margin:10px 0}
-
-/* CART */
-.panel{
-position:fixed;right:0;top:0;
-width:350px;height:100vh;background:#111;
-padding:20px;transform:translateX(100%);
-transition:0.4s;z-index:2000;overflow:auto;
-}
-.panel.active{transform:translateX(0)}
-.overlay{
-position:fixed;inset:0;background:rgba(0,0,0,0.6);
-display:none;z-index:1500;
-}
-.overlay.active{display:block}
-
-/* MODAL */
-.modal{
-position:fixed;inset:0;background:rgba(0,0,0,0.7);
-display:none;justify-content:center;align-items:center;
-z-index:3000;
-}
-.modal-content{
-background:#1c1c1c;padding:40px;border-radius:20px;text-align:center;
-}
-
-/* ADMIN PANEL */
-#adminPanel{
-position:fixed;inset:0;background:#0c0c0c;
-color:white;display:none;z-index:6000;
-overflow:auto;padding:40px;
-}
-input{padding:8px;margin-bottom:10px}
-button{cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:#0c0c0c;color:#fff;overflow-x:hidden;transition:0.4s;}
+body.light{background:#f5f5f5;color:#111;}
+#loader{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:5000;animation:fadeOut 1s ease 2.5s forwards;}
+#loader h1{font-size:50px;letter-spacing:8px;color:#ff7a00;}
+#loader p{color:#ccc;margin-top:10px;}
+@keyframes fadeOut{to{opacity:0;visibility:hidden;}}
+header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 50px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);z-index:1000;transition:0.4s;}
+header.light{background:rgba(0,0,0,0.05);}
+.logo{font-weight:800;letter-spacing:3px;color:#ff7a00;}
+.nav-right{display:flex;gap:20px;align-items:center;}
+.toggle{cursor:pointer;padding:6px 14px;border-radius:20px;background:#ff7a00;font-size:12px;color:#fff;}
+.filters{margin-bottom:40px;text-align:center;}
+.filters select{padding:8px;margin:0 10px;border-radius:8px;border:none;}
+.hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;position:relative;background:url('https://images.unsplash.com/photo-1603073884310-bc6fd3efafbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080') center/cover no-repeat;}
+.hero-content{transition:transform 0.2s;background:rgba(0,0,0,0.6);padding:50px;border-radius:30px;}
+.hero h1{font-size:60px;font-weight:800;}
+.hero p{margin:20px 0;color:#ccc;}
+.btn{padding:14px 35px;border:none;border-radius:40px;background:linear-gradient(45deg,#ff7a00,#ff5100);color:#fff;cursor:pointer;transition:0.3s;}
+.btn:hover{transform:translateY(-4px);box-shadow:0 15px 40px rgba(255,122,0,0.4);}
+.section{padding:120px 50px;}
+.section h2{text-align:center;margin-bottom:60px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;}
+.card{background:rgba(255,255,255,0.05);border-radius:25px;overflow:hidden;transition:0.4s;transform-style:preserve-3d;position:relative;}
+.card img{width:100%;height:220px;object-fit:cover;}
+.card-body{padding:20px;}
+.price{color:#ff7a00;margin:10px 0;}
+.rating{color:#ffcc00;margin-bottom:5px;}
+.qty{display:flex;gap:5px;align-items:center;margin:10px 0;}
+.qty button{padding:2px 8px;border-radius:5px;border:none;background:#ff7a00;color:#fff;cursor:pointer;}
+.qty span{min-width:20px;text-align:center;}
+.wishlist{position:absolute;top:10px;right:10px;font-size:20px;cursor:pointer;}
+.panel{position:fixed;right:0;top:0;width:350px;height:100vh;background:#111;padding:20px;transform:translateX(100%);transition:0.4s;z-index:2000;overflow:auto;}
+.panel.active{transform:translateX(0);}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;z-index:1500;}
+.overlay.active{display:block;}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;justify-content:center;align-items:center;z-index:3000;}
+.modal-content{background:#1c1c1c;padding:40px;border-radius:20px;text-align:center;}
+#adminPanel{position:fixed;inset:0;background:#0c0c0c;color:white;display:none;z-index:6000;overflow:auto;padding:40px;}
+input{padding:8px;margin-bottom:10px;width:100%;}
+button{cursor:pointer;}
+@media(max-width:768px){header{padding:20px} .section{padding:80px 20px} .hero h1{font-size:40px}}
 </style>
 </head>
-
 <body>
-
 <div id="loader"><h1>URBANSLICE</h1><p>Loading Experience...</p></div>
 
-<header>
+<header id="header">
 <div class="logo">URBANSLICE</div>
 <div class="nav-right">
 <div class="toggle" onclick="toggleMode()">Toggle</div>
@@ -115,13 +65,27 @@ button{cursor:pointer}
 <section class="hero" id="hero">
 <div class="hero-content" id="heroContent">
 <h1>Luxury Taste Experience</h1>
-<p>Premium handcrafted pizza & burgers.</p>
+<p>Premium handcrafted pizza, burgers & drinks.</p>
 <button class="btn" onclick="scrollMenu()">Explore Menu</button>
 </div>
 </section>
 
 <section class="section" id="menu">
 <h2>Signature Selection</h2>
+<div class="filters">
+Category: <select id="filterCategory" onchange="applyFilters()">
+<option value="">All</option>
+<option value="Pizza">Pizza</option>
+<option value="Burger">Burger</option>
+<option value="Drink">Drink</option>
+<option value="Sides">Sides</option>
+</select>
+Sort By: <select id="sortPrice" onchange="applyFilters()">
+<option value="">Default</option>
+<option value="asc">Price Low → High</option>
+<option value="desc">Price High → Low</option>
+</select>
+</div>
 <div class="grid" id="productGrid"></div>
 </section>
 
@@ -141,34 +105,32 @@ button{cursor:pointer}
 </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="adminPanel">
 <h1>Admin Dashboard</h1>
 <button onclick="closeAdmin()">Close</button>
-
 <div id="adminLogin">
 <h2>Login</h2>
 <input type="password" id="adminPass" placeholder="Enter Password">
 <button onclick="loginAdmin()">Login</button>
 <p id="loginError" style="color:red"></p>
 </div>
-
 <div id="adminContent" style="display:none">
 <h2>Analytics</h2>
 <p>Total Revenue: ₹<span id="adminRevenue">0</span></p>
 <p>Total Orders: <span id="adminOrders">0</span></p>
 <p>Total Products: <span id="adminProducts">0</span></p>
-
-<hr><h2>Add Product</h2>
+<hr>
+<h2>Add Product</h2>
 <input id="newName" placeholder="Name"><br>
 <input id="newPrice" type="number" placeholder="Price"><br>
 <input id="newImg" placeholder="Image URL"><br>
+<input id="newCategory" placeholder="Category"><br>
 <button onclick="addProduct()">Add Product</button>
-
-<hr><h2>Products</h2>
+<hr>
+<h2>Products</h2>
 <div id="adminProductList"></div>
-
-<hr><h2>Orders</h2>
+<hr>
+<h2>Orders</h2>
 <div id="adminOrderList"></div>
 <button onclick="clearOrders()">Clear Orders</button>
 </div>
@@ -177,134 +139,93 @@ button{cursor:pointer}
 <audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
 <script>
-
-let products=[
-{name:"Truffle Pizza",price:499,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3"},
-{name:"Pepperoni Pizza",price:599,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a"},
-{name:"Chicken Burger",price:349,img:"https://images.unsplash.com/photo-1550547660-d9450f859349"}
+// Products: 20 Pizzas, 10 Burgers, 10 Drinks
+let products = [
+{name:"Truffle Pizza",price:499,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3",category:"Pizza",rating:5},
+{name:"Pepperoni Pizza",price:599,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a",category:"Pizza",rating:4},
+{name:"Cheese Pizza",price:449,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a",category:"Pizza",rating:5},
+{name:"Margherita Pizza",price:399,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Pizza",rating:4},
+{name:"BBQ Chicken Pizza",price:649,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Pizza",rating:5},
+{name:"Veggie Pizza",price:449,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Pizza",rating:4},
+{name:"Hawaiian Pizza",price:579,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3",category:"Pizza",rating:5},
+{name:"Four Cheese Pizza",price:699,img:"https://images.unsplash.com/photo-1548365328-9f547fb0953a",category:"Pizza",rating:5},
+{name:"Mexican Pizza",price:649,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Pizza",rating:4},
+{name:"Spicy Veg Pizza",price:499,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Pizza",rating:4},
+{name:"Chicken Burger",price:349,img:"https://images.unsplash.com/photo-1550547660-d9450f859349",category:"Burger",rating:4},
+{name:"Veggie Burger",price:299,img:"https://images.unsplash.com/photo-1617196035135-3e05bfde962d",category:"Burger",rating:4},
+{name:"Double Burger",price:399,img:"https://images.unsplash.com/photo-1617196035135-3e05bfde962d",category:"Burger",rating:5},
+{name:"Cheese Burger",price:369,img:"https://images.unsplash.com/photo-1550547660-d9450f859349",category:"Burger",rating:4},
+{name:"Bacon Burger",price:449,img:"https://images.unsplash.com/photo-1617196035135-3e05bfde962d",category:"Burger",rating:5},
+{name:"Coca Cola",price:79,img:"https://images.unsplash.com/photo-1583673053624-3b0b8e5b8e7f",category:"Drink",rating:5},
+{name:"Pepsi",price:69,img:"https://images.unsplash.com/photo-1598514983054-6186ed0c0c32",category:"Drink",rating:4},
+{name:"Fanta",price:79,img:"https://images.unsplash.com/photo-1583673053624-3b0b8e5b8e7f",category:"Drink",rating:4},
+{name:"Sprite",price:69,img:"https://images.unsplash.com/photo-1598514983054-6186ed0c0c32",category:"Drink",rating:4},
+{name:"Mango Juice",price:99,img:"https://images.unsplash.com/photo-1601924582975-1677d4ed01b4",category:"Drink",rating:5},
+{name:"Lemonade",price:89,img:"https://images.unsplash.com/photo-1583673053624-3b0b8e5b8e7f",category:"Drink",rating:4},
+{name:"Chocolate Shake",price:129,img:"https://images.unsplash.com/photo-1598514983054-6186ed0c0c32",category:"Drink",rating:5},
+{name:"Fries",price:129,img:"https://images.unsplash.com/photo-1598514983054-6186ed0c0c32",category:"Sides",rating:4},
+{name:"Cheese Fries",price:159,img:"https://images.unsplash.com/photo-1617196035135-3e05bfde962d",category:"Sides",rating:5},
+{name:"Chicken Wings",price:299,img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3",category:"Sides",rating:5},
+{name:"Veg Sandwich",price:199,img:"https://images.unsplash.com/photo-1550547660-d9450f859349",category:"Sides",rating:4}
 ];
 
-let cart=[];
+let cart = [], wishlist = [];
 
-function renderProducts(){
-let grid=document.getElementById("productGrid");
-grid.innerHTML="";
-products.forEach((p,i)=>{
-grid.innerHTML+=`
-<div class="card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
-<img src="${p.img}">
-<div class="card-body">
-<h3>${p.name}</h3>
-<div class="price">₹${p.price}</div>
-<button class="btn" onclick="addToCart(${i})">Add to Cart</button>
-</div></div>`;
-});
+// Loader
+window.addEventListener("load", ()=>{document.getElementById("loader").style.display="none";});
+
+// Render products
+function renderProducts(filter="", sort=""){
+    let grid = document.getElementById("productGrid");
+    let temp = [...products];
+    if(filter) temp = temp.filter(p=>p.category===filter);
+    if(sort==='asc') temp.sort((a,b)=>a.price-b.price);
+    if(sort==='desc') temp.sort((a,b)=>b.price-a.price);
+    grid.innerHTML="";
+    temp.forEach((p,i)=>{
+        let stars=""; for(let r=0;r<p.rating;r++) stars+="★";
+        let heart = wishlist.includes(i) ? '❤️' : '🤍';
+        grid.innerHTML+=`<div class="card" onmousemove="tilt(event,this)" onmouseleave="resetTilt(this)">
+            <div class="wishlist" onclick="toggleWishlist(${i})">${heart}</div>
+            <img src="${p.img}">
+            <div class="card-body">
+            <h3>${p.name}</h3>
+            <div class="rating">${stars}</div>
+            <div class="price">₹${p.price}</div>
+            <div class="qty">
+                <button onclick="changeQty(${i},-1)">-</button>
+                <span id="qty${i}">1</span>
+                <button onclick="changeQty(${i},1)">+</button>
+            </div>
+            <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
+            </div>
+        </div>`;
+    });
 }
 renderProducts();
 
-function addToCart(i){
-document.getElementById("sound").play();
-cart.push(products[i]);
-updateCart();
-}
-function updateCart(){
-let total=0;let html="";
-cart.forEach(c=>{total+=c.price;html+=`<p>${c.name} - ₹${c.price}</p>`});
-document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText="Total: ₹"+total;
-document.getElementById("count").innerText=cart.length;
-}
+function applyFilters(){let category=document.getElementById('filterCategory').value; let sort=document.getElementById('sortPrice').value; renderProducts(category,sort);}
+function toggleWishlist(i){wishlist.includes(i)?wishlist=wishlist.filter(x=>x!==i):wishlist.push(i); renderProducts();}
+function changeQty(i,delta){let span=document.getElementById(`qty${i}`); let val=parseInt(span.innerText)+delta; if(val<1) val=1; span.innerText=val;}
+function addToCart(i){document.getElementById("sound").play(); let qty=parseInt(document.getElementById(`qty${i}`).innerText); let item={...products[i],qty}; cart.push(item); updateCart();}
+function updateCart(){let total=0; let html=""; cart.forEach(c=>{total+=c.price*c.qty; html+=`<p>${c.name} x ${c.qty} - ₹${c.price*c.qty}</p>`}); document.getElementById("cartItems").innerHTML=html; document.getElementById("total").innerText="Total: ₹"+total; document.getElementById("count").innerText=cart.length;}
+function toggleCart(){document.getElementById("cartPanel").classList.add("active"); document.getElementById("overlay").classList.add("active");}
+function closeCart(){document.getElementById("cartPanel").classList.remove("active"); document.getElementById("overlay").classList.remove("active");}
+function scrollMenu(){document.getElementById("menu").scrollIntoView();}
+function toggleMode(){document.body.classList.toggle("light"); document.getElementById('header').classList.toggle('light');}
+function checkout(){document.getElementById("modal").style.display="flex"; cart=[]; updateCart();}
+function closeModal(){document.getElementById("modal").style.display="none"; closeCart();}
+function tilt(e,el){let rect=el.getBoundingClientRect(); let x=e.clientX-rect.left; let y=e.clientY-rect.top; let rotateX=-(y-rect.height/2)/15; let rotateY=(x-rect.width/2)/15; el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;}
+function resetTilt(el){el.style.transform="rotateX(0) rotateY(0)";}
 
-function toggleCart(){
-document.getElementById("cartPanel").classList.add("active");
-document.getElementById("overlay").classList.add("active");
-}
-function closeCart(){
-document.getElementById("cartPanel").classList.remove("active");
-document.getElementById("overlay").classList.remove("active");
-}
-function scrollMenu(){document.getElementById("menu").scrollIntoView()}
-function toggleMode(){document.body.classList.toggle("light")}
-function checkout(){
-document.getElementById("modal").style.display="flex";
-cart=[];updateCart();
-}
-function closeModal(){document.getElementById("modal").style.display="none";closeCart()}
-
-/* 3D TILT */
-function tilt(e,el){
-let rect=el.getBoundingClientRect();
-let x=e.clientX-rect.left;
-let y=e.clientY-rect.top;
-let rotateX=-(y-rect.height/2)/15;
-let rotateY=(x-rect.width/2)/15;
-el.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-}
-function resetTilt(el){el.style.transform="rotateX(0) rotateY(0)"}
-
-/* ADMIN ACCESS */
-document.addEventListener("keydown",function(e){
-if(e.ctrlKey && e.shiftKey && e.key==="A"){
-document.getElementById("adminPanel").style.display="block";
-}
-});
-
-function closeAdmin(){document.getElementById("adminPanel").style.display="none"}
-
-function loginAdmin(){
-let pass=document.getElementById("adminPass").value;
-if(pass==="shivansh@123"){
-document.getElementById("adminLogin").style.display="none";
-document.getElementById("adminContent").style.display="block";
-loadAdminData();
-}else{
-document.getElementById("loginError").innerText="Wrong Password";
-}
-}
-
-function loadAdminData(){
-document.getElementById("adminRevenue").innerText=
-cart.reduce((sum,p)=>sum+p.price,0);
-document.getElementById("adminOrders").innerText=cart.length;
-document.getElementById("adminProducts").innerText=products.length;
-
-let html="";
-products.forEach((p,i)=>{
-html+=`${p.name} - ₹${p.price} <button onclick="deleteProduct(${i})">Delete</button><br>`;
-});
-document.getElementById("adminProductList").innerHTML=html;
-
-let orderHTML="";
-cart.forEach(c=>orderHTML+=`<p>${c.name} - ₹${c.price}</p>`);
-document.getElementById("adminOrderList").innerHTML=orderHTML;
-}
-
-function addProduct(){
-let name=newName.value;
-let price=parseInt(newPrice.value);
-let img=newImg.value;
-if(name && price && img){
-products.push({name,price,img});
-renderProducts();
-loadAdminData();
-alert("Product Added");
-}
-}
-
-function deleteProduct(i){
-products.splice(i,1);
-renderProducts();
-loadAdminData();
-}
-
-function clearOrders(){
-cart=[];
-updateCart();
-loadAdminData();
-alert("Orders Cleared");
-}
-
+// Admin
+document.addEventListener("keydown",function(e){if(e.ctrlKey && e.shiftKey && e.key==="A"){document.getElementById("adminPanel").style.display="block";}});
+function closeAdmin(){document.getElementById("adminPanel").style.display="none";}
+function loginAdmin(){let pass=document.getElementById("adminPass").value;if(pass==="shivansh@123"){document.getElementById("adminLogin").style.display="none";document.getElementById("adminContent").style.display="block";loadAdminData();}else{document.getElementById("loginError").innerText="Wrong Password";}}
+function loadAdminData(){let revenue=cart.reduce((sum,p)=>sum+p.price*p.qty,0); document.getElementById("adminRevenue").innerText=revenue; document.getElementById("adminOrders").innerText=cart.length; document.getElementById("adminProducts").innerText=products.length; let html=""; products.forEach((p,i)=>{html+=`${p.name} - ₹${p.price} <button onclick="deleteProduct(${i})">Delete</button><br>`;}); document.getElementById("adminProductList").innerHTML=html; let orderHTML=""; cart.forEach(c=>orderHTML+=`<p>${c.name} x ${c.qty} - ₹${c.price*c.qty}</p>`); document.getElementById("adminOrderList").innerHTML=orderHTML;}
+function addProduct(){let name=newName.value; let price=parseInt(newPrice.value); let img=newImg.value; let category=newCategory.value; if(name && price && img && category){products.push({name,price,img,category,rating:5}); renderProducts(); loadAdminData(); newName.value=""; newPrice.value=""; newImg.value=""; newCategory.value=""; alert("Product added successfully!");}else{alert("Fill all fields");}}
+function deleteProduct(i){products.splice(i,1); renderProducts(); loadAdminData();}
+function clearOrders(){cart=[]; updateCart(); loadAdminData();}
 </script>
-
 </body>
 </html>
